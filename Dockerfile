@@ -1,10 +1,10 @@
-FROM debian:buster-slim
-ENV DEBIAN_FRONTEND noninteractive
+FROM debian:bullseye-slim
+ENV DEBIAN_FRONTEND=noninteractive
 
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get -y update && apt-get -y install \
+RUN apt-get -o Acquire::Check-Valid-Until=false -y update && apt-get -y install \
 	bc \
 	bison \
     build-essential \
@@ -29,6 +29,14 @@ RUN apt-get -y update && apt-get -y install \
 	vim \
 	wget \
 	zip \
+	pkg-config \
+	yasm \
+	nasm \
+	libtool \
+	autoconf \
+	automake \
+	python3 \
+	python3-dev \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /root/workspace
